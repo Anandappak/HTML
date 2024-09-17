@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap Example</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Add custom styles here if needed */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>JSON Object to Bootstrap HTML</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <ul class="list-group">
+          <!-- Dynamically generated list items -->
+          <li class="list-group-item active">Object Details</li>
+          <li class="list-group-item">Name: <span id="name"></span></li>
+          <li class="list-group-item">Age: <span id="age"></span></li>
+          <li class="list-group-item">City: <span id="city"></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    // Assuming you have the JSON object stored in a variable called `data`
+    var data = {
+      "name": "John Doe",
+      "age": 30,
+      "city": "New York"
+    };
+
+    // Function to populate the HTML with JSON data
+    function populateHTML(data) {
+      document.getElementById('name').textContent = data.name;
+      document.getElementById('age').textContent = data.age;
+      document.getElementById('city').textContent = data.city;
+    }
+
+    // Call the function to populate HTML
+    populateHTML(data);
+  </script>
+</body>
+</html>
