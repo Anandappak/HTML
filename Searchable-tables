@@ -1,0 +1,85 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Table</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2 class="text-center">Search Table</h2>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <input type="text" id="input1" class="form-control" placeholder="Search Input 1">
+            </div>
+            <div class="col-md-6">
+                <input type="text" id="input2" class="form-control" placeholder="Search Input 2">
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Table rows will be dynamically populated -->
+            </tbody>
+        </table>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const jsonData = [
+        { id: 1, name: "John", category: "A" },
+        { id: 2, name: "Jane", category: "B" },
+        { id: 3, name: "Alice", category: "A" },
+        { id: 4, name: "Bob", category: "C" }
+    ];
+
+    const tableBody = document.getElementById('tableBody');
+    const input1 = document.getElementById('input1');
+    const input2 = document.getElementById('input2');
+
+    // Function to populate the table
+    function populateTable(data) {
+        tableBody.innerHTML = "";
+        data.forEach(item => {
+            const row = `<tr>
+                <td>${item.id}</td>
+                <td>${item.name}</td>
+                <td>${item.category}</td>
+            </tr>`;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    // Function to filter table
+    function filterTable() {
+        const filter1 = input1.value.toLowerCase();
+        const filter2 = input2.value.toLowerCase();
+
+        const filteredData = jsonData.filter(item =>
+            item.name.toLowerCase().includes(filter1) &&
+            item.category.toLowerCase().includes(filter2)
+        );
+
+        populateTable(filteredData);
+    }
+
+    // Add event listeners to inputs
+    input1.addEventListener('input', filterTable);
+    input2.addEventListener('input', filterTable);
+
+    // Populate the table initially
+    populateTable(jsonData);
+});
+
