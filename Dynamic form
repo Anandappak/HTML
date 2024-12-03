@@ -1,0 +1,58 @@
+dynamic form 
+
+[
+  { "label": "Name", "value": "John Doe" },
+  { "label": "Age", "value": 30 },
+  { "label": "Email", "value": "john.doe@example.com" }
+]
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic UI</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <h1>Dynamic Object Rendering</h1>
+    <div id="dynamic-container">
+        <!-- Dynamic UI will be rendered here -->
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+$(document).ready(function () {
+    // Example list of objects
+    const data = [
+        { label: "Name", value: "John Doe" },
+        { label: "Age", value: 30 },
+        { label: "Email", value: "john.doe@example.com" }
+    ];
+
+    // Select the container
+    const container = $("#dynamic-container");
+
+    // Loop through the data and render UI dynamically
+    data.forEach(item => {
+        const row = `
+            <div class="dynamic-row">
+                <label><strong>${item.label}:</strong></label>
+                <span>${item.value}</span>
+            </div>
+        `;
+        container.append(row);
+    });
+
+    // Optional: Add some styling
+    $(".dynamic-row").css({
+        "margin": "10px 0",
+        "font-family": "Arial, sans-serif"
+    });
+    $("label").css({
+        "margin-right": "10px"
+    });
+});
+
