@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <h2 class="mb-4">Dynamic Form</h2>
+    <form id="dynamicForm" class="needs-validation" novalidate>
+      <!-- Form will be generated here -->
+    </form>
+    <button type="submit" class="btn btn-primary mt-3" id="submitButton">Submit</button>
+  </div>
+
+  <script>
+    // Example list of labels and input types
+    const formElements = [
+      { label: 'First Name', type: 'text', id: 'firstName' },
+      { label: 'Last Name', type: 'text', id: 'lastName' },
+      { label: 'Email', type: 'email', id: 'email' },
+      { label: 'Password', type: 'password', id: 'password' },
+      { label: 'Gender', type: 'select', id: 'gender', options: ['Male', 'Female', 'Other'] },
+      { label: 'Agree to Terms', type: 'checkbox', id: 'terms' }
+    ];
+
+    const formContainer = document.getElementById('dynamicForm');
+
+    // Generate form dynamically
+    formElements.forEach(element => {
+      const formGroup = document.createElement('div');
+      formGroup.className = 'mb-3';
+
+      const label = document.createElement('label');
+      label.className = 'form-label';
+      label.setAttribute('for', element.id);
+      label.textContent = element.label;
+
+      let input;
+      if (element.type === 'select') {
+        input = document.createElement('select');
+        input.className = 'form-select';
+        input.setAttribute('id', element.id);
+        input.setAttribute('name', element.id);
+
+        element.options.forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option.toLowerCase();
+          optionElement.textContent = option;
+          input.appendChild(optionElement);
+        });
+      } else if (element.type === 'checkbox') {
+        formGroup.className = 'form-check';
+        label.className = 'form-check-label';
+        input = document.createElement('input');
+        input.className = 'form-check-input';
+        input.setAttribute('type', element.type);
+        input.setAttribute('id', element.id);
+        input.setAttribute('name', element.id);
+      } else {
+        input = document.createElement('input');
+        input.className = 'form-control';
+        input.setAttribute('type', element.type);
+        input.setAttribute('id', element.id);
+        input.setAttribute('name', element.id);
+      }
+
+      formGroup.appendChild(input);
+      if (element.type !== 'checkbox') formGroup.prepend(label);
+      else formGroup.appendChild(label);
+
+      formContainer.appendChild(formGroup);
+    });
+
+    // Handle form submission
+    document.getElementById('submitButton').addEventListener('click', (e) => {
+      e.preventDefault();
+      const formData = new FormData(document.getElementById('dynamicForm'));
+      const data = Object.fromEntries(formData.entries());
+      console.log('Form Data:', data);
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
